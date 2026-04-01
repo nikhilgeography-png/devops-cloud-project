@@ -30,4 +30,5 @@ jobs:
             docker ps -aq --filter "publish=8080" | xargs -r docker rm
 
             docker build -t devops-project .
-            docker run -d -p 8080:80 --name devops-project
+
+            docker run -d -p 8080:80 --name devops-project devops-project
