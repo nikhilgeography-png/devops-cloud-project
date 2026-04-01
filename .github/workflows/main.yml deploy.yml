@@ -22,7 +22,12 @@ jobs:
           script: |
             cd devops-cloud-project
             git pull origin main
+
             docker stop devops-project || true
             docker rm devops-project || true
+
+            docker ps -q --filter "publish=8080" | xargs -r docker stop
+            docker ps -aq --filter "publish=8080" | xargs -r docker rm
+
             docker build -t devops-project .
             docker run -d -p 8080:80 --name devops-project devops-project
